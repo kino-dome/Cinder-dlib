@@ -1,0 +1,1 @@
+uncompress mnist dataset here

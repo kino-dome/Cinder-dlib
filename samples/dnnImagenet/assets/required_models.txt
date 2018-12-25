@@ -1,0 +1,2 @@
+resnet34_1000_imagenet_classifier.dnn
+http://dlib.net/files/resnet34_1000_imagenet_classifier.dnn.bz2

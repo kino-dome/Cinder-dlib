@@ -1,0 +1,2 @@
+caltech/256_ObjectCategories_Sample_Flat
+http://www.vision.caltech.edu/Image_Datasets/Caltech256/256_ObjectCategories.tar

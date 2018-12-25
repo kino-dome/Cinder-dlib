@@ -1,0 +1,2 @@
+mmod_human_face_detector.dat
+https://github.com/davisking/dlib-models/raw/master/mmod_human_face_detector.dat.bz2

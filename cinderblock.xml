@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+    <block
+    name="Cinder-dlib"
+	id="com.holescapes.kino.dlib"
+	author="Kino (kino.hoescapes.com)"
+	license="BSD"
+	summary="A header-only bridge inspired by Cinder-OpenCV and ofxDlib to connect dlib to libcinder (www.libcinder.org)"
+	git="https://github.com/kino-dome/Cinder-dlib.git"
+	version="1.0.0"
+	libraryUrl="http://dlib.net/"
+	>
+	<header>include/CinderDlib.h</header>
+	<header>include/Types.h</header>
+	<header>include/Utils.h</header>
+	<includePath>include</includePath>
+	<platform os="macosx">
+			<staticLibrary>lib/macosx/libdlib.a</staticLibrary>		
+	</platform>
+	<platform os="ios">
+			<staticLibrary>lib/macosx/libdlib.a</staticLibrary>		
+	</platform>
+	<platform os="msw">
+			<staticLibrary>lib/msw/libdlib.lib</staticLibrary>	
+	</platform>
+    </block>
+</cinder>
