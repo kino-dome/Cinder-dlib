@@ -12,7 +12,7 @@ dlib needs to be built and placed in the `lib` folder. There are helper scripts 
 ### Related Threads
 These are the threads I made or got involved with when working on this project:
 
-https://discourse.libcinder.org/t/imagesource-and-cinder-inter-api-image-conversions-routines/963/15
+https://discourse.libcinder.org/t/imagesource-and-cinder-inter-api-image-conversions-routines
 
 https://sourceforge.net/p/dclib/discussion/442518/thread/316f3d50/?limit=25#a29d
 
