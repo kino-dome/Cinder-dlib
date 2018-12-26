@@ -1,9 +1,9 @@
-#Cinder-dlib
+# Cinder-dlib
 
 A [dlib](http://dlib.net "dlib") bridge for [Cinder](http://www.libcinder.org "Cinder")
 
 
-###Description
+### Description
 Very much inspired by [ofxDlib](https://github.com/bakercp/ofxDlib/tree/masterhttp:// "ofxDlib"). Using the generic_image.h interface, the conversions between dlib and Cinder are made toll-free, meanining no extra process is done and images are just interpreted into the target formats.
 
 ### Installation
