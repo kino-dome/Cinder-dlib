@@ -236,6 +236,7 @@ public:
 
 /////////////////////// fromDlib Utils
 
+
 template <typename pixel_type>
 inline ci::ImageSourceRef fromDlib(const dlib::array2d<pixel_type>& in )
 {
@@ -297,15 +298,16 @@ inline ci::Area fromDlib(const dlib::mmod_rect& r)
     return fromDlib(r.rect);
 }
 
-inline ci::Colorf fromDlib(const dlib::rgb_pixel& v)
+inline ci::Color8u fromDlib(const dlib::rgb_pixel& c)
 {
-    return ci::Colorf(v.red / 255.0f , v.green / 255.0f, v.blue / 255.0f);
+//    return ci::Colorf(v.red / 255.0f , v.green / 255.0f, v.blue / 255.0f);
+    return *reinterpret_cast<const ci::Color8u*>(&c);
 }
-
-
-inline ci::ColorAf fromDlib(const dlib::rgb_alpha_pixel& v)
+    
+inline ci::ColorA8u fromDlib(const dlib::rgb_alpha_pixel& c)
 {
-    return ci::ColorAf(v.red / 255.0f, v.green / 255.0f, v.blue / 255.0f, v.alpha / 255.0f);
+    //return ci::ColorAf(v.red, v.green, v.blue, v.alpha);
+    return *reinterpret_cast<const ci::ColorA8u*>(&c);
 }
 
 ////// toDlib Utils
@@ -346,14 +348,26 @@ inline dlib::rectangle toDlib(const ci::RectT<T>& r)
     return dlib::rectangle(r.getX1(), r.getY1(), r.getX2(), r.getY2());
 }
 
-inline dlib::rgb_pixel toDlib(const ci::Color8u& c)
+inline dlib::rgb_pixel toDlib(const ci::Colorf& c)
 {
-    return dlib::rgb_pixel(c.r*255, c.g*255, c.b*255);
+    return dlib::rgb_pixel(c.r * 255, c.g * 255, c.b * 255);
 }
 
-inline dlib::rgb_alpha_pixel toDlib(const ci::ColorA8u& c)
+inline dlib::rgb_alpha_pixel toDlib(const ci::ColorAf& c)
 {
     return dlib::rgb_alpha_pixel(c.r * 255, c.g * 255, c.b * 255, c.a * 255);
+}
+    
+inline dlib::rgb_pixel toDlib(const ci::Color8u& c)
+{
+    //return dlib::rgb_pixel(c.r, c.g, c.b);
+    return *reinterpret_cast<const dlib::rgb_pixel*>(&c);
+}
+    
+inline dlib::rgb_alpha_pixel toDlib(const ci::ColorA8u& c)
+{
+//    return dlib::rgb_alpha_pixel(c.r, c.g, c.b, c.a);
+    return *reinterpret_cast<const dlib::rgb_alpha_pixel*>(&c);
 }
 
 //////////////////// Helper utils
