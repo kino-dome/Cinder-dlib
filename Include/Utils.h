@@ -107,9 +107,10 @@ template<typename pixel_type>
 class ImageSourceDlib : public ci::ImageSource {
 public:
     
+    enum class ColorType {RGB, HSL, LAB};
     typedef typename dlib::pixel_traits<pixel_type>::basic_pixel_type basic_pixel_type;
     
-    ImageSourceDlib(const dlib::array2d<pixel_type>& in, float aSourceValueMin = 0.0f, float aSourceValueMax = 255.0f) : ci::ImageSource(), mIsLab(false), mIsHsi(false)
+    ImageSourceDlib(const dlib::array2d<pixel_type>& in, float aSourceValueMin = 0.0f, float aSourceValueMax = 255.0f)
     {
         mWidth = dlib::num_columns(in);
         mHeight = dlib::num_rows(in);
@@ -121,14 +122,17 @@ public:
         mSourceValueMin = aSourceValueMin;
         mSourceValueMax = aSourceValueMax;
         if (dlib::pixel_traits<pixel_type>::hsi){
-            mIsHsi = true;
+            mColorType = ColorType::HSL;
         }
         else if (dlib::pixel_traits<pixel_type>::lab){
-            mIsLab = true;
+            mColorType = ColorType::LAB;
+        }
+        else {
+            mColorType = ColorType::RGB;
         }
     }
     
-    ImageSourceDlib(const dlib::matrix<pixel_type>& in, float aSourceValueMin = 0.0f, float aSourceValueMax = 255.0f) : ci::ImageSource(), mIsLab(false), mIsHsi(false)
+    ImageSourceDlib(const dlib::matrix<pixel_type>& in, float aSourceValueMin = 0.0f, float aSourceValueMax = 255.0f)
     {
         mWidth = dlib::num_columns(in);
         mHeight = dlib::num_rows(in);
@@ -140,10 +144,13 @@ public:
         mSourceValueMin = aSourceValueMin;
         mSourceValueMax = aSourceValueMax;
         if (dlib::pixel_traits<pixel_type>::hsi){
-            mIsHsi = true;
+            mColorType = ColorType::HSL;
         }
         else if (dlib::pixel_traits<pixel_type>::lab){
-            mIsLab = true;
+            mColorType = ColorType::LAB;
+        }
+        else {
+            mColorType = ColorType::RGB;
         }
     }
     
@@ -153,7 +160,7 @@ public:
         const size_t numChannels = ci::ImageIo::channelOrderNumChannels(mChannelOrder);
         
         if(getDataType() == ci::ImageIo::DataType::UINT8){
-            if (mIsHsi){
+            if (mColorType == ColorType::HSL){
                 std::vector<uint8_t> data(mWidth * mHeight * numChannels, 0);
                 for(int i=0; i< data.size(); i += 3){
                     dlib::assign_pixel_helpers::COLOUR col;
@@ -173,7 +180,7 @@ public:
                     ((*this).*func)( target, row, rowData.data() );
                 }
             }
-            else if(mIsLab) {
+            else if(mColorType == ColorType::LAB) {
                 std::vector<uint8_t> data(mWidth * mHeight * numChannels, 0);
                 for(int i=0; i< data.size(); i += 3){
                     dlib::assign_pixel_helpers::COLOUR col;
@@ -231,7 +238,7 @@ public:
     const basic_pixel_type*		mData;
     float                       mSourceValueMin, mSourceValueMax;
     int32_t                     mRowBytes;
-    bool                        mIsLab, mIsHsi;
+    ColorType                   mColorType;
 };
 
 /////////////////////// fromDlib Utils

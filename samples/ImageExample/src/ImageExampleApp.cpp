@@ -72,10 +72,10 @@ void ImageExampleApp::setup()
     // go out of scope before heat_edge_image.
     Surface heat_edge_image (fromDlib(heat_edge_matrix));
     
-//    std::cout << "The same underlying data? " <<  (dlib::image_data(heat_edge_matrix) == dlib::image_data(heat_edge_image)) << std::endl;
+    //    std::cout << "The same underlying data? " <<  (dlib::image_data(heat_edge_matrix) == dlib::image_data(heat_edge_image)) << std::endl;
     
-//     Since dlib::heatmap and similar objects return dlib::matrix_exp, our
-//     toOf helper functions correctly resolve the expression without an
+    //   Since dlib::heatmap and similar objects return dlib::matrix_exp, our
+    //   toOf helper functions correctly resolve the expression without an
 //     additional assignment to a dlib::matrix before passing to ofxDlib::toOf.
 //    
 //     Thus, ofxDlib::toOf will preserve the speedy templated expression system
